@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Other ###
+.DS_Store
+*/.DS_Store
+findbugs/
+
+
