@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kevin.demo.book.web.vo;
 
 

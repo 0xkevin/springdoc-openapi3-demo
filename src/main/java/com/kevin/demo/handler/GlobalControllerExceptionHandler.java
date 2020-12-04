@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kevin.demo.handler;
 
 import org.springframework.core.convert.ConversionFailedException;
@@ -12,7 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.kevin.demo.common.response.R;
 import com.kevin.demo.exception.CustomException;
 
+
 /**
+ * 
+ * OpenApi会解析@RestControllerAdvice注解的类，在response中会显示这些异常定义：400/404/500
+ * 
  * @author kevin
  *
  */

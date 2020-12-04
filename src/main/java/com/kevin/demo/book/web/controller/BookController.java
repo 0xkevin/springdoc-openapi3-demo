@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kevin.demo.book.web.controller;
 
 import java.util.ArrayList;
@@ -9,19 +6,27 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kevin.demo.book.web.dto.BookDTO;
 import com.kevin.demo.book.web.vo.BookVO;
 import com.kevin.demo.common.response.R;
+import com.kevin.demo.exception.CustomException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -33,7 +38,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/book")
 @Tag(name = "书籍管理")
 public class BookController {
-
+	
+	//security属性会要求在swagger-ui页面请求调试的时候，需要带上指定的header -> HttpHeaders.AUTHORIZATION，安全配置请参考OpenApiConfig.java的@SecurityScheme
 	@Operation(summary ="查询某一本书籍", security = @SecurityRequirement(name = HttpHeaders.AUTHORIZATION))
     @GetMapping("/{id}")
     public R<BookVO> findById(@Parameter(description="书籍的id")@PathVariable long id) {
@@ -72,5 +78,11 @@ public class BookController {
     public R<BookVO> updateBook(@Parameter(description="书籍的id")@PathVariable("id") final String id, 
     		@Valid @RequestBody BookDTO book) {
         return new R<BookVO>().success();
+    }
+	
+	@Operation(summary ="文件上传", security = @SecurityRequirement(name = HttpHeaders.AUTHORIZATION))
+    @PostMapping(value = "/uploadFile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public R<String> uploadFile(@Parameter(description="需要上传的文件，仅支持文件类型：jpg,png")@RequestParam(value = "file") MultipartFile file) throws CustomException{
+		return new R<String>().success().data("http://xxx.xxx.com/12345.jpg");
     }
 }

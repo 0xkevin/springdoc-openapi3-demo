@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kevin.demo.store.web.dto;
 
 import javax.validation.constraints.Max;

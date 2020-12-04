@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kevin.demo.store.web.controller;
 
 import java.util.ArrayList;
